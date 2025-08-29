@@ -1,5 +1,3 @@
-
-
 const Vehicle = require("../Model/Vehicle");
 const Booking = require("../Model/Booking");
 
@@ -67,6 +65,16 @@ exports.findAvailableVehicles = async (req, res) => {
       }
     }
     res.json(availableVehicles);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Get all vehicles
+exports.getAllVehicles = async (req, res) => {
+  try {
+    const vehicles = await Vehicle.find({});
+    res.status(200).json(vehicles);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

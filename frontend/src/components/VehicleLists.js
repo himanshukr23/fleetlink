@@ -62,3 +62,4 @@ const VehicleList = ({ vehicles, searchData, onBookingSuccess }) => {
   );
 };
 export default VehicleList;
+

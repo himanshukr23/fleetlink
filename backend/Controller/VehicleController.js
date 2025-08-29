@@ -1,5 +1,8 @@
+
+
 const Vehicle = require("../Model/Vehicle");
 const Booking = require("../Model/Booking");
+
 // Calculate estimated ride duration (simplified logic)
 const calculateRideDuration = (fromPincode, toPincode) => {
   const fromNum = parseInt(fromPincode) || 0;
@@ -20,13 +23,11 @@ exports.addVehicle = async (req, res) => {
 };
 
 // Find available vehicles
-
 exports.findAvailableVehicles = async (req, res) => {
   try {
     const { capacityRequired, fromPincode, toPincode, startTime } = req.query;
 
     // Validate required parameters
-
     if (!capacityRequired || !fromPincode || !toPincode || !startTime) {
       return res.status(400).json({ error: "Missing required parameters" });
     }
@@ -36,7 +37,6 @@ exports.findAvailableVehicles = async (req, res) => {
     }
 
     // Calculate ride duration and end time
-
     const estimatedRideDurationHours = calculateRideDuration(
       fromPincode,
       toPincode
@@ -46,7 +46,6 @@ exports.findAvailableVehicles = async (req, res) => {
     );
 
     // Find vehicles with sufficient capacity
-
     const vehicles = await Vehicle.find({
       capacityKg: { $gte: parseInt(capacityRequired) },
       isActive: true,
@@ -72,3 +71,6 @@ exports.findAvailableVehicles = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+// Export the function so it can be used in other files
+exports.calculateRideDuration = calculateRideDuration;
